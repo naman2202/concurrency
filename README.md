@@ -6,37 +6,37 @@ Concurrency is a lightweight gem that can be deployed for foreign exchange and c
 
 This gem can implement the currency conversion operation for the following national currencies - 
 
-"AUD" - Australian Dollar
-"BGN" - Bulgarian Lev
-"BRL" - Brazilian Real
-"CAD" - Canadian Dollar
-"CHF" - Swiss Franc
-"CNY" - Chinese Yuan
-"CZK" - Czech Koruna
-"DKK" - Danish Krone 
-"GBP" - British Pound
-"HKD" - Hong Kong Dollar
-"HRK" - Croatian Kuna
-"HUF" - Hungarian Forint
-"IDR" - Indonesian Rupiah
-"ILS" - Israeli New Shekel
-"INR" - Indian Rupee
-"JPY" - Japanese Yen
-"KRW" - South Korean Won
-"MXN" - Mexican Peso
-"MYR" - Malaysian Ringgit
-"NOK" - Norwegian Krone
-"NZD" - New Zealand Dollar
-"PHP" - Philippine Peso
-"PLN" - Polish Zloty
-"RON" - Romanian Leu
-"RUB" - Russian Ruble
-"SEK" - Swedish Krona
-"SGD" - Singapore Dollar
-"THB" - Thai Baht
-"TRY" - Turkish Lira
-"USD" - United States Dollar
-"ZAR" - South African Rand
+"AUD" - Australian Dollar,
+"BGN" - Bulgarian Lev,
+"BRL" - Brazilian Real,
+"CAD" - Canadian Dollar,
+"CHF" - Swiss Franc,
+"CNY" - Chinese Yuan,
+"CZK" - Czech Koruna,
+"DKK" - Danish Krone ,
+"GBP" - British Pound,
+"HKD" - Hong Kong Dollar,
+"HRK" - Croatian Kuna,
+"HUF" - Hungarian Forint,
+"IDR" - Indonesian Rupiah,
+"ILS" - Israeli New Shekel,
+"INR" - Indian Rupee,
+"JPY" - Japanese Yen,
+"KRW" - South Korean Won,
+"MXN" - Mexican Peso,
+"MYR" - Malaysian Ringgit,
+"NOK" - Norwegian Krone,
+"NZD" - New Zealand Dollar,
+"PHP" - Philippine Peso,
+"PLN" - Polish Zloty,
+"RON" - Romanian Leu,
+"RUB" - Russian Ruble,
+"SEK" - Swedish Krona,
+"SGD" - Singapore Dollar,
+"THB" - Thai Baht,
+"TRY" - Turkish Lira,
+"USD" - United States Dollar,
+"ZAR" - South African Rand,
 
 This app requires JSON. If you're using JRuby < 1.7.0 you'll need to add gem "json" to your Gemfile or similar.
 
@@ -45,7 +45,7 @@ This app requires JSON. If you're using JRuby < 1.7.0 you'll need to add gem "js
 To install Concurrency on the default Rails stack, just put this line in your Gemfile:
 
 ```ruby
-gem 'concurrency'
+    gem 'concurrency'
 ```
 
 And then execute:
@@ -64,19 +64,9 @@ Or install it yourself as:
 ```ruby
     Concurrency.convert(ORIGINAL_VALUE, ORIGINAL_CURRENCY, FINAL_CURRENCY)
 ```
-Use the following code in order to convert 100 New Zealand Dollars to Indian Rupees.
-    
-```ruby
-    Concurrency.convert(100, "NZD", "INR")
-```
-
-This would return a floating point number denoting the converted value.
-
-Use the following code to convert anything FROM the US Dollar.
 
 ```ruby
-    Concurrency.convert(ORIGINAL_VALUE_IN_USD, FINAL_CURRENCY)
-    Concurrency.convert(100, "CHY")     # will convert 100 US Dollars to Chinese Yuan
+    Concurrency.convert(100, "NZD", "INR")      # would convert 100 New Zealand Dollars to Indian Rupees
 ```
 
 ```ruby
@@ -84,7 +74,6 @@ Use the following code to convert anything FROM the US Dollar.
 ```
 
 In order to establish default conversion currencies, paste the following code in .../config/initializers/concurrency.rb
-Without creating this config file, the defaults are set as (from) USD and (to) INR
 
 ```ruby
     Concurrency.configure do |config|

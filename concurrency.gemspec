@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Naman Wadhwa"]
   spec.email         = ["naman.2202@gmail.com"]
 
-  spec.summary       = %q{A lightweight gem for converting currency values obeying the latest foreign exchange rates.}
+  spec.summary       = %q{A lightweight gem for foreign exchange and currency conversion.}
   spec.description   = %q{}
   spec.homepage      = ""
   spec.license       = "MIT"
