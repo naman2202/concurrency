@@ -1,6 +1,6 @@
 require 'concurrency/configuration'
 require "concurrency/version"
-require 'net/http'
+require 'net/https'
 require 'json'
 
 module Concurrency
@@ -54,14 +54,14 @@ module Concurrency
     end
     
     def self.get_rate(from, to)
-        url = "http://api.fixer.io/latest?base=#{from}&symbols=#{to}"
+        url = "https://free.currencyconverterapi.com/api/v3/convert?q=#{from}_#{to}&compact=ultra"
         uri = URI(url)
         response = Net::HTTP.get(uri)
         if response == nil
             return nil
         else
             parsed_response = JSON.parse(response)
-            rate = (parsed_response["rates"]["#{to}"]).to_f
+            rate = (parsed_response["#{from}_#{to}"]).to_f
             return rate
         end
     end

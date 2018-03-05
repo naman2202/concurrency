@@ -1,6 +1,7 @@
 # Concurrency
 
-Concurrency is a lightweight gem that can be deployed for foreign exchange and currency conversion operation complying the latest rates (provided by the [fixer.io](fixer.io) API)
+Concurrency is a lightweight gem that can be deployed for foreign exchange and currency conversion operation complying the latest rates provided by [https://free.currencyconverterapi.com/](https://free.currencyconverterapi.com)  
+  It should be noted that the rates provided by the parent API are refreshed every 30 minutes and are not in real time.
 
 ## Features
 
@@ -36,7 +37,7 @@ This gem can implement the currency conversion operation for the following natio
 "THB" - Thai Baht,
 "TRY" - Turkish Lira,
 "USD" - United States Dollar,
-"ZAR" - South African Rand,
+"ZAR" - South African Rand,  
 
 This gem requires JSON. If you're using JRuby < 1.7.0 you'll need to add gem "json" to your Gemfile or similar.
 
@@ -58,14 +59,14 @@ Or install it yourself as:
 
 ## Usage
 
-You may use the following functions in your Models, Controllers or Views
-
 ```ruby
-    Concurrency.convert(ORIGINAL_VALUE, ORIGINAL_CURRENCY, FINAL_CURRENCY)
+    Concurrency.convert(AMOUNT_TO_BE_CONVERTED, CONVERT_FROM_CURRENCY, CONVERT_TO_CURRENCY)
 ```
 
 ```ruby
     Concurrency.convert(100, "NZD", "INR")      # would convert 100 New Zealand Dollars to Indian Rupees
+```
+```irb
     <%= Concurrency.convert(100, "NZD", "INR") %>      
 ```
 
