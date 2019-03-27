@@ -6,7 +6,7 @@ require 'json'
 module Concurrency
     class << self
         attr_accessor :configuration
-    end    
+    end   
     
     def self.configuration
         @configuration ||= Configuration.new
@@ -21,7 +21,7 @@ module Concurrency
     end
     
     def self.convert(*args)
-        if args.length == 4
+        if args.length == 3
             Concurrency.convert_full(*args)
         elsif args.length == 2
             Concurrency.convert_full(args[0], Concurrency.configuration.from_currency, args[1])
@@ -30,7 +30,7 @@ module Concurrency
         end
     end
     
-    def self.conversion_rate(from = Concurrency.configuration.from_currency, to = Concurrency.configuration.to_currency, api_key)
+    def self.conversion_rate(from = Concurrency.configuration.from_currency, to = Concurrency.configuration.to_currency)
         if from == to
             return 1.0
         else
@@ -41,11 +41,11 @@ module Concurrency
     
     private
   
-    def self.convert_full(initial, from, to, api_key)
+    def self.convert_full(initial, from, to)
         if from == to
             return initial
         end
-        rate = Concurrency.get_rate(from, to, api_key)
+        rate = Concurrency.get_rate(from, to)
         if rate == nil
             return nil
         else
@@ -53,7 +53,8 @@ module Concurrency
         end
     end
     
-    def self.get_rate(from, to, api_key)
+    def self.get_rate(from, to)
+
         url = "https://free.currencyconverterapi.com/api/v6/convert?q=#{from}_#{to}&compact=ultra&apiKey=#{api_key}"
         uri = URI(url)
         response = Net::HTTP.get(uri)
@@ -64,6 +65,16 @@ module Concurrency
             rate = (parsed_response["#{from}_#{to}"]).to_f
             return rate
         end
+    end
+
+    private
+
+    def self.api_key
+        api_key = ENV["CONCURRENCY_APIKEY"]
+        if api_key.nil? 
+            raise "Environment variable missing. Kindly set apikey environment variable with CONCURRENCY_APIKEY."
+        end
+        api_key
     end
     
 end
