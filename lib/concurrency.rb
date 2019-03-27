@@ -21,7 +21,7 @@ module Concurrency
     end
     
     def self.convert(*args)
-        if args.length == 3
+        if args.length == 4
             Concurrency.convert_full(*args)
         elsif args.length == 2
             Concurrency.convert_full(args[0], Concurrency.configuration.from_currency, args[1])
@@ -30,22 +30,22 @@ module Concurrency
         end
     end
     
-    def self.conversion_rate(from = Concurrency.configuration.from_currency, to = Concurrency.configuration.to_currency)
+    def self.conversion_rate(from = Concurrency.configuration.from_currency, to = Concurrency.configuration.to_currency, api_key)
         if from == to
             return 1.0
         else
-            rate = Concurrency.get_rate(from, to)
+            rate = Concurrency.get_rate(from, to, api_key)
             return rate
         end
     end
     
     private
   
-    def self.convert_full(initial, from, to)
+    def self.convert_full(initial, from, to, api_key)
         if from == to
             return initial
         end
-        rate = Concurrency.get_rate(from, to)
+        rate = Concurrency.get_rate(from, to, api_key)
         if rate == nil
             return nil
         else
@@ -53,8 +53,8 @@ module Concurrency
         end
     end
     
-    def self.get_rate(from, to)
-        url = "https://free.currencyconverterapi.com/api/v3/convert?q=#{from}_#{to}&compact=ultra"
+    def self.get_rate(from, to, api_key)
+        url = "https://free.currencyconverterapi.com/api/v6/convert?q=#{from}_#{to}&compact=ultra&apiKey=#{api_key}"
         uri = URI(url)
         response = Net::HTTP.get(uri)
         if response == nil

@@ -64,14 +64,14 @@ Or install it yourself as:
 ```
 
 ```ruby
-    Concurrency.convert(100, "NZD", "INR")      # would convert 100 New Zealand Dollars to Indian Rupees
+    Concurrency.convert(100, "NZD", "INR", "APIKEY")      # would convert 100 New Zealand Dollars to Indian Rupees
 ```
 ```irb
-    <%= Concurrency.convert(100, "NZD", "INR") %>      
+    <%= Concurrency.convert(100, "NZD", "INR", "APIKEY") %>      
 ```
 
 ```ruby
-    Concurrency.conversion_rate("NZD", "INR")    # will return the value of 1 New Zealand Dollar in Indian Rupees
+    Concurrency.conversion_rate("NZD", "INR", "APIKEY")    # will return the value of 1 New Zealand Dollar in Indian Rupees
 ```
 
 In order to establish default conversion currencies, paste the following code in .../config/initializers/concurrency.rb
@@ -83,9 +83,9 @@ In order to establish default conversion currencies, paste the following code in
     end
 ```
 ```ruby
-    Concurrency.convert(100)    # would convert 100 USD to INR
-    Concurrency.convert(100, "NZD")     # would convert 100 USD to NZD
-    Concurrency.conversion_rate     # would convert 1 USD to INR
+    Concurrency.convert(100, "APIKEY")    # would convert 100 USD to INR
+    Concurrency.convert(100, "NZD", "APIKEY")     # would convert 100 USD to NZD
+    Concurrency.conversion_rate("APIKEY")     # would convert 1 USD to INR
 ```
 
 ## Development
