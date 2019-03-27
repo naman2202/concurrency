@@ -6,7 +6,7 @@ require 'json'
 module Concurrency
     class << self
         attr_accessor :configuration
-    end    
+    end   
     
     def self.configuration
         @configuration ||= Configuration.new
@@ -54,7 +54,11 @@ module Concurrency
     end
     
     def self.get_rate(from, to)
-        url = "https://free.currencyconverterapi.com/api/v3/convert?q=#{from}_#{to}&compact=ultra"
+        puts "From:#{from}>>TO:#{to}>>APIKEY:#{Concurrency.configuration.api_key}"
+        if Concurrency.configuration.api_key.nil? 
+            raise "API Key is missing. Kindly set API key CONCURRENCY_APIKEY."
+        end
+        url = "https://free.currencyconverterapi.com/api/v6/convert?q=#{from}_#{to}&compact=ultra&apiKey=#{Concurrency.configuration.api_key}"
         uri = URI(url)
         response = Net::HTTP.get(uri)
         if response == nil
@@ -64,6 +68,5 @@ module Concurrency
             rate = (parsed_response["#{from}_#{to}"]).to_f
             return rate
         end
-    end
-    
+    end   
 end
