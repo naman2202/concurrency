@@ -34,7 +34,7 @@ module Concurrency
         if from == to
             return 1.0
         else
-            rate = Concurrency.get_rate(from, to, api_key)
+            rate = Concurrency.get_rate(from, to)
             return rate
         end
     end
@@ -54,8 +54,11 @@ module Concurrency
     end
     
     def self.get_rate(from, to)
-
-        url = "https://free.currencyconverterapi.com/api/v6/convert?q=#{from}_#{to}&compact=ultra&apiKey=#{api_key}"
+        puts "From:#{from}>>TO:#{to}>>APIKEY:#{Concurrency.configuration.api_key}"
+        if Concurrency.configuration.api_key.nil? 
+            raise "API Key is missing. Kindly set API key CONCURRENCY_APIKEY."
+        end
+        url = "https://free.currencyconverterapi.com/api/v6/convert?q=#{from}_#{to}&compact=ultra&apiKey=#{Concurrency.configuration.api_key}"
         uri = URI(url)
         response = Net::HTTP.get(uri)
         if response == nil
@@ -65,16 +68,5 @@ module Concurrency
             rate = (parsed_response["#{from}_#{to}"]).to_f
             return rate
         end
-    end
-
-    private
-
-    def self.api_key
-        api_key = ENV["CONCURRENCY_APIKEY"]
-        if api_key.nil? 
-            raise "Environment variable missing. Kindly set apikey environment variable with CONCURRENCY_APIKEY."
-        end
-        api_key
-    end
-    
+    end   
 end
