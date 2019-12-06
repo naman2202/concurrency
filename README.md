@@ -78,15 +78,16 @@ In order to establish default conversion currencies, paste the following code in
 
 ```ruby
     Concurrency.configure do |config|
-        config.from_currency = "USD"    #Default value
-        config.to_currency = "INR"      #Default value
-        config.api_key = ENV['CONCURRENCY_APIKEY']   #Mandatory value
+        config.from_currency = "USD" # Default value
+        config.to_currency = "INR" # Default value
+        config.api_key = ENV['CONCURRENCY_APIKEY'] # Mandatory value
+        config.url = ENV['CONCURRENCY_URL'] # Mandatory value
     end
 ```
 ```ruby
-    Concurrency.convert(100)    # would convert 100 USD to INR
-    Concurrency.convert(100, "NZD")     # would convert 100 USD to NZD
-    Concurrency.conversion_rate     # would convert 1 USD to INR
+    Concurrency.convert(100) # would convert 100 USD to INR
+    Concurrency.convert(100, "NZD") # would convert 100 USD to NZD
+    Concurrency.conversion_rate # would convert 1 USD to INR
 ```
 
 ## Development
