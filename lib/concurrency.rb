@@ -6,8 +6,8 @@ require 'json'
 module Concurrency
     class << self
         attr_accessor :configuration
-    end   
-    
+    end
+
     def self.configuration
         @configuration ||= Configuration.new
     end
@@ -19,7 +19,7 @@ module Concurrency
     def self.configure
         yield(configuration)
     end
-    
+
     def self.convert(*args)
         if args.length == 3
             Concurrency.convert_full(*args)
@@ -29,7 +29,7 @@ module Concurrency
             Concurrency.convert_full(args[0], Concurrency.configuration.from_currency, Concurrency.configuration.to_currency)
         end
     end
-    
+
     def self.conversion_rate(from = Concurrency.configuration.from_currency, to = Concurrency.configuration.to_currency)
         if from == to
             return 1.0
@@ -38,9 +38,9 @@ module Concurrency
             return rate
         end
     end
-    
+
     private
-  
+
     def self.convert_full(initial, from, to)
         if from == to
             return initial
@@ -52,13 +52,13 @@ module Concurrency
             return initial*rate
         end
     end
-    
+
     def self.get_rate(from, to)
         puts "From:#{from}>>TO:#{to}>>APIKEY:#{Concurrency.configuration.api_key}"
-        if Concurrency.configuration.api_key.nil? 
+        if Concurrency.configuration.api_key.nil?
             raise "API Key is missing. Kindly set API key CONCURRENCY_APIKEY."
         end
-        url = "https://free.currencyconverterapi.com/api/v6/convert?q=#{from}_#{to}&compact=ultra&apiKey=#{Concurrency.configuration.api_key}"
+        url = "https://api.currconv.com/api/v7/convert?q=#{from}_#{to}&compact=ultra&apiKey=#{Concurrency.configuration.api_key}"
         uri = URI(url)
         response = Net::HTTP.get(uri)
         if response == nil
@@ -68,5 +68,5 @@ module Concurrency
             rate = (parsed_response["#{from}_#{to}"]).to_f
             return rate
         end
-    end   
+    end
 end
